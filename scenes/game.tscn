@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cu4c5qkpyvx5v"]
+
+[ext_resource type="Script" uid="uid://b1k3wutcqokjc" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b2urqag1572m8" path="res://scenes/ui.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dilc421qn8oq6" path="res://scenes/bird.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Node2D" unique_id=978842338]
+script = ExtResource("1_lnu2h")
+
+[node name="UI" parent="." unique_id=778642812 instance=ExtResource("1_uwrxv")]
+
+[node name="Bird" parent="." unique_id=1330338950 instance=ExtResource("2_yqjtg")]
+
+[connection signal="start" from="Bird" to="." method="_on_start"]
