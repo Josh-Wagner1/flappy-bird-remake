@@ -3,11 +3,43 @@
 [ext_resource type="Script" uid="uid://b1k3wutcqokjc" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b2urqag1572m8" path="res://scenes/ui.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dilc421qn8oq6" path="res://scenes/bird.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://derf8i8i677ao" path="res://scenes/killzone.tscn" id="4_lbhrr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yf5fn"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
 
 [node name="Game" type="Node2D" unique_id=978842338]
 script = ExtResource("1_lnu2h")
 
 [node name="UI" parent="." unique_id=778642812 instance=ExtResource("1_uwrxv")]
+
+[node name="WorldBorders" type="Node" parent="." unique_id=1965651563]
+
+[node name="Top" type="StaticBody2D" parent="WorldBorders" unique_id=1040727669]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/Top" unique_id=164195714]
+position = Vector2(351, 2)
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_yf5fn")
+
+[node name="Bottom" type="StaticBody2D" parent="WorldBorders" unique_id=1318871601]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/Bottom" unique_id=2043766600]
+position = Vector2(357, 922)
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[node name="Killzone" parent="WorldBorders" unique_id=286017450 instance=ExtResource("4_lbhrr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/Killzone" unique_id=565386458]
+position = Vector2(357, 920)
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[node name="PipeCooldown" type="Timer" parent="." unique_id=304639821]
+wait_time = 3.0
+one_shot = true
 
 [node name="Bird" parent="." unique_id=1330338950 instance=ExtResource("2_yqjtg")]
 

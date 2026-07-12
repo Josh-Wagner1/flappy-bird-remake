@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 		print(y2)
 		set_process(false)
 
+# Triggers show and hide animations
 func toggle_menu(b : bool):
 	set_process(true)
 	is_visible = b

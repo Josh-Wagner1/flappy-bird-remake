@@ -6,7 +6,7 @@ signal dead
 
 # Constants
 const SPEED = 300.0
-const JUMP_VELOCITY = -600.0
+const JUMP_VELOCITY = -400.0
 const IDLE_SPEED = 3
 const IDLE_AMPLITUDE = -90
 
@@ -17,10 +17,10 @@ var time_elapsed := 0.0
 
 # Onready variables
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var parent = get_parent()
 
 func _ready() -> void:
-	global_position = Vector2(360, 550)
-	sprite.play("fly")
+	reset()
 
 func _physics_process(delta: float) -> void:
 	# gather time for use in idle animation
@@ -43,9 +43,22 @@ func _physics_process(delta: float) -> void:
 	# Adjust rotation
 	var sprite_rotation = 0 + velocity.y/600
 	
-	if sprite_rotation < PI/2:
+	if sprite_rotation <= PI/2 and velocity.y != 0 and alive:
 		sprite.rotation = 0 + velocity.y/600
 	else:
 		sprite.rotation = PI/2
 	
 	move_and_slide()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		
+		if collider is AnimatableBody2D:
+			parent.kill_player()
+
+# resets bird to idle position in main menu
+func reset():
+	global_position = Vector2(360, 550)
+	sprite.play("yellow_fly")
+	idle = true

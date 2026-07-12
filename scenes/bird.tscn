@@ -29,16 +29,16 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bdh3x")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"blue_dead",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3po83")
 }],
 "loop": 0,
-"name": &"dead",
+"name": &"yellow_dead",
 "speed": 4.0
 }, {
 "frames": [{
@@ -52,7 +52,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_b7mtg")
 }],
 "loop": 1,
-"name": &"fly",
+"name": &"yellow_fly",
 "speed": 4.0
 }]
 
@@ -61,6 +61,7 @@ animations = [{
 [node name="Bird" type="CharacterBody2D" unique_id=1330338950]
 z_index = 10
 scale = Vector2(2, 2)
+collision_mask = 8
 script = ExtResource("1_3po83")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=811897750]
