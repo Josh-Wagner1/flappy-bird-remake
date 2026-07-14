@@ -1,6 +1,7 @@
 extends Node2D
 
 # Constants
+const SCOREZONE = preload("uid://byex7xpm4tev1")
 const PIPE = preload("uid://cpu88kec1ggg4")
 const PIPE_GREEN_TOP = preload("uid://dfn8bndf861kg")
 const PIPE_GREEN_BOTTOM = preload("uid://cbup833d453o1")
@@ -8,15 +9,18 @@ const PIPE_BROWN_TOP = preload("uid://d4ckejjc1paiu")
 const PIPE_BROWN_BOTTOM = preload("uid://dpqpn2fifr0o8")
 
 # Variables
+var rng := RandomNumberGenerator.new()
 var playing := false
 var bg_speed := 0.2
 var bg_time := 0.0
+var score := 0
 
 # Onready imports
+@onready var background: TextureRect = $Background/Background
 @onready var ui: CanvasLayer = $UI
 @onready var menu: Node2D = $UI/MainMenu
 @onready var ground: TextureRect = $UI/Ground
-@onready var background: TextureRect = $UI/Background
+@onready var score_label: Label = $Score
 @onready var pipe_cooldown: Timer = $PipeCooldown
 @onready var bird: CharacterBody2D = $Bird
 
@@ -29,11 +33,13 @@ func _process(delta: float) -> void:
 	_set_speed()
 	
 	if pipe_cooldown.is_stopped() and playing:
+		var dif = rng.randi_range(-225, 225)
 		
-		# TODO add noise to randomise pipe positions
+		_spawn_pipe(Vector2(800, 90 + dif), PIPE_GREEN_TOP)
+		_spawn_pipe(Vector2(800, 910 + dif), PIPE_GREEN_BOTTOM)
 		
-		_spawn_pipe(Vector2(800, 100), PIPE_GREEN_TOP)
-		_spawn_pipe(Vector2(800, 900), PIPE_GREEN_BOTTOM)
+		var score_zone = SCOREZONE.instantiate()
+		add_child(score_zone)
 		
 		pipe_cooldown.start()
 
@@ -56,6 +62,11 @@ func _spawn_pipe(pos: Vector2, type) -> void:
 	pipe.position = pos
 	
 	add_child(pipe)
+
+# Adds a point
+func add_score():
+	score += 1
+	score_label.text = str(score)
 
 # Kills player
 func kill_player():

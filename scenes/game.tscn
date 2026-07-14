@@ -3,7 +3,14 @@
 [ext_resource type="Script" uid="uid://b1k3wutcqokjc" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b2urqag1572m8" path="res://scenes/ui.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dilc421qn8oq6" path="res://scenes/bird.tscn" id="2_yqjtg"]
+[ext_resource type="Shader" uid="uid://buv3sk4dj27if" path="res://scenes/background.gdshader" id="3_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bhja5fvamfr1r" path="res://sprites/day.png" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://derf8i8i677ao" path="res://scenes/killzone.tscn" id="4_lbhrr"]
+[ext_resource type="FontFile" uid="uid://c1m22nl3kpup1" path="res://fonts/PixelOperator8-Bold.ttf" id="5_u5sy4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gee14"]
+shader = ExtResource("3_p57ef")
+shader_parameter/speed = 0.1
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yf5fn"]
 
@@ -12,7 +19,35 @@
 [node name="Game" type="Node2D" unique_id=978842338]
 script = ExtResource("1_lnu2h")
 
+[node name="Background" type="CanvasLayer" parent="." unique_id=2031048359]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="Background" unique_id=351767342]
+z_index = -10
+texture_repeat = 2
+material = SubResource("ShaderMaterial_gee14")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_u5sy4")
+
 [node name="UI" parent="." unique_id=778642812 instance=ExtResource("1_uwrxv")]
+
+[node name="Score" type="Label" parent="." unique_id=298082953]
+z_index = 11
+offset_left = 340.0
+offset_top = 30.0
+offset_right = 388.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+theme_override_colors/font_outline_color = Color(0.32941177, 0.21960784, 0.2784314, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("5_u5sy4")
+theme_override_font_sizes/font_size = 48
+text = "0"
 
 [node name="WorldBorders" type="Node" parent="." unique_id=1965651563]
 

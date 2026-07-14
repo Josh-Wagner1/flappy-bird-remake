@@ -5,21 +5,15 @@
 [ext_resource type="Shader" uid="uid://buv3sk4dj27if" path="res://scenes/background.gdshader" id="1_x4jx1"]
 [ext_resource type="Texture2D" uid="uid://bmcwtmqg17s23" path="res://sprites/ground.png" id="1_yev5y"]
 [ext_resource type="Texture2D" uid="uid://cwgqogxajhjle" path="res://sprites/logo.png" id="2_wm3ai"]
-[ext_resource type="Texture2D" uid="uid://bhja5fvamfr1r" path="res://sprites/day.png" id="2_yev5y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdt2y"]
 shader = ExtResource("1_x4jx1")
 shader_parameter/speed = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekxnf"]
-shader = ExtResource("1_x4jx1")
-shader_parameter/speed = 0.1
-
 [node name="UI" type="CanvasLayer" unique_id=778642812]
-layer = -1
 
 [node name="MainMenu" type="Node2D" parent="." unique_id=1455993376]
-z_index = 5
+z_index = 10
 script = ExtResource("1_8dubc")
 
 [node name="Logo" type="Sprite2D" parent="MainMenu" unique_id=639528850]
@@ -44,15 +38,3 @@ offset_top = -159.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_yev5y")
-
-[node name="Background" type="TextureRect" parent="." unique_id=2048032466]
-z_index = -10
-texture_repeat = 2
-material = SubResource("ShaderMaterial_ekxnf")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_yev5y")

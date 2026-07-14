@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://byex7xpm4tev1"]
+
+[ext_resource type="Script" uid="uid://cmjlj52rvtt05" path="res://scenes/scorezone.gd" id="1_ntqqm"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+
+[node name="Scorezone" type="Area2D" unique_id=310503219]
+collision_layer = 8
+script = ExtResource("1_ntqqm")
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=236065331]
+rotation = 4.712389
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
