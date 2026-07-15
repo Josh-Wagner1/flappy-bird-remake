@@ -31,8 +31,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	elif idle:
 		velocity.y = sin(time_elapsed * IDLE_SPEED) * IDLE_AMPLITUDE
-
-	# Handle jump
+	
+	# Handles jumping
 	if Input.is_action_just_pressed("jump") and alive:
 		if idle:
 			idle = false

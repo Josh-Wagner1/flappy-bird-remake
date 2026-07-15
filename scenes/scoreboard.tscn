@@ -25,7 +25,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7acvr"]
 resource_name = "appear"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,15 +93,19 @@ theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871358710]
-libraries/ = SubResource("AnimationLibrary_a2dux")
-
 [node name="MenuButton" type="TextureButton" parent="." unique_id=2141072776]
 offset_left = 300.0
 offset_top = 750.0
 offset_right = 380.0
 offset_bottom = 778.0
 scale = Vector2(1.5, 1.5)
+focus_mode = 0
+action_mode = 0
 texture_normal = ExtResource("6_fpta5")
 texture_pressed = ExtResource("6_fpta5")
 script = ExtResource("7_7acvr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871358710]
+libraries/ = SubResource("AnimationLibrary_a2dux")
+
+[connection signal="pressed" from="MenuButton" to="MenuButton" method="_on_pressed"]

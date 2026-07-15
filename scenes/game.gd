@@ -1,12 +1,14 @@
 extends Node2D
 
 # Constants
-const SCOREZONE = preload("uid://byex7xpm4tev1")
 const PIPE = preload("uid://cpu88kec1ggg4")
 const PIPE_GREEN_TOP = preload("uid://dfn8bndf861kg")
 const PIPE_GREEN_BOTTOM = preload("uid://cbup833d453o1")
 const PIPE_BROWN_TOP = preload("uid://d4ckejjc1paiu")
 const PIPE_BROWN_BOTTOM = preload("uid://dpqpn2fifr0o8")
+const SCOREZONE = preload("uid://byex7xpm4tev1")
+const COIN = preload("uid://vj5enqcg5fvp")
+const PAUSE_MENU = preload("uid://br35mj14l3w3j")
 
 # Variables
 var rng := RandomNumberGenerator.new()
@@ -28,17 +30,24 @@ var score := 0
 
 # Startup actions
 func _ready() -> void:
-	$Scoreboard/MenuButton.pressed.connect(_on_menu_button_pressed)
+	pass
 
 # Recurring actions
 func _process(delta: float) -> void:
 	_set_speed()
 	
 	if pipe_cooldown.is_stopped() and playing:
-		var dif = rng.randi_range(-225, 225)
-		
+		# Pipes
+		var dif := rng.randi_range(-225, 225)
 		_spawn_pipe(Vector2(800, 90 + dif), PIPE_GREEN_TOP)
 		_spawn_pipe(Vector2(800, 910 + dif), PIPE_GREEN_BOTTOM)
+		
+		# Coin if successful
+		var c := rng.randi_range(1, 10)
+		if c == 5:
+			var coin = COIN.instantiate()
+			coin.global_position = (Vector2(800, 495 + dif))
+			$Pipes.add_child(coin)
 		
 		var score_zone = SCOREZONE.instantiate()
 		$Pipes.add_child(score_zone)
@@ -48,8 +57,11 @@ func _process(delta: float) -> void:
 func _on_start() -> void:
 	playing = true
 	pipe_cooldown.start()
-	# hide the menu
+	bird.set_collision_mask_value(8, true)
+	
+	# hide the menu and add pause
 	menu.toggle_menu(false)
+	$UI/PauseMenu/Pause.show()
 
 # sets speed of background
 func _set_speed() -> void:
@@ -65,7 +77,13 @@ func _spawn_pipe(pos: Vector2, type) -> void:
 	
 	$Pipes.add_child(pipe)
 
-func _on_menu_button_pressed():
+# Adds a point
+func add_score(num: int = 1):
+	score += num
+	score_label.text = str(score)
+
+# Resets to main menu
+func reset_to_main_menu():
 	game_over.play("RESET")
 	$Scoreboard/AnimationPlayer.play("RESET")
 	
@@ -79,11 +97,6 @@ func _on_menu_button_pressed():
 	bird.reset()
 	menu.toggle_menu(true)
 
-# Adds a point
-func add_score():
-	score += 1
-	score_label.text = str(score)
-
 # Kills player
 func kill_player():
 	playing = false
@@ -92,7 +105,8 @@ func kill_player():
 	bird.alive = false
 	bird.sprite.play("yellow_dead")
 	game_over.play("appear")
-
+	
+	$UI/PauseMenu/Pause.hide()
 	$Scoreboard/AnimationPlayer.play("appear")
 	$Scoreboard/Score.set_score(score)
 	

@@ -43,7 +43,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_0tnpc"]
 resource_name = "appear"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -103,16 +103,21 @@ texture = ExtResource("3_u5sy4")
 
 [node name="Score" type="Label" parent="." unique_id=298082953]
 z_index = 11
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = 340.0
 offset_top = 30.0
 offset_right = 388.0
 offset_bottom = 78.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
 theme_override_colors/font_outline_color = Color(0.32941177, 0.21960784, 0.2784314, 1)
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("5_u5sy4")
 theme_override_font_sizes/font_size = 48
 text = "0"
+horizontal_alignment = 1
 
 [node name="GameOver" type="Sprite2D" parent="." unique_id=1907118291]
 self_modulate = Color(1, 1, 1, 0)

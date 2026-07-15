@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://br35mj14l3w3j"]
+
+[ext_resource type="Texture2D" uid="uid://b24orscw6es4u" path="res://sprites/buttons/pause.png" id="1_kukqi"]
+[ext_resource type="Script" uid="uid://dr1wkkysc15b1" path="res://scenes/pause.gd" id="2_5d2l8"]
+[ext_resource type="FontFile" uid="uid://c1m22nl3kpup1" path="res://fonts/PixelOperator8-Bold.ttf" id="3_7l7mv"]
+
+[node name="PauseMenu" type="Control" unique_id=1489399486]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+focus_behavior_recursive = 1
+
+[node name="Pause" type="TextureButton" parent="." unique_id=529020068]
+process_mode = 3
+z_index = 9
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 51.0
+offset_bottom = 53.0
+scale = Vector2(2, 2)
+focus_mode = 0
+focus_behavior_recursive = 1
+action_mode = 0
+texture_normal = ExtResource("1_kukqi")
+script = ExtResource("2_5d2l8")
+
+[node name="Paused" type="Label" parent="." unique_id=380119509]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 160.0
+offset_top = 450.0
+offset_right = 520.0
+offset_bottom = 551.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+theme_override_colors/font_outline_color = Color(0.32941177, 0.21960784, 0.2784314, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_7l7mv")
+theme_override_font_sizes/font_size = 60
+text = "Paused"
+
+[node name="Countdown" type="Label" parent="." unique_id=1897523647]
+process_mode = 3
+visible = false
+layout_mode = 0
+offset_left = 320.0
+offset_top = 450.0
+offset_right = 420.0
+offset_bottom = 551.0
+theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+theme_override_colors/font_outline_color = Color(0.32941177, 0.21960784, 0.2784314, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_7l7mv")
+theme_override_font_sizes/font_size = 100
+text = "3"
+
+[node name="CountdownTimer" type="Timer" parent="." unique_id=1434907120]
+process_mode = 3
+one_shot = true
+
+[connection signal="pressed" from="Pause" to="Pause" method="_on_pressed"]
