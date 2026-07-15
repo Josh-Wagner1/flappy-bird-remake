@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://riygr62mdo71"]
+
+[ext_resource type="Texture2D" uid="uid://cx1gsu4bklmor" path="res://sprites/score_board.png" id="1_ucmtr"]
+[ext_resource type="Texture2D" uid="uid://bbhook3bb8fyw" path="res://sprites/silver_medal.png" id="2_cxde7"]
+[ext_resource type="Texture2D" uid="uid://cs8bxg4v6ys4c" path="res://sprites/gold_medal.png" id="3_6lsbm"]
+[ext_resource type="FontFile" uid="uid://c1m22nl3kpup1" path="res://fonts/PixelOperator8-Bold.ttf" id="4_fpta5"]
+[ext_resource type="Script" uid="uid://dpbjtncy20w11" path="res://scenes/score_label.gd" id="5_6lsbm"]
+[ext_resource type="Texture2D" uid="uid://20psfk6ptcu3" path="res://sprites/buttons/menu_button.png" id="6_fpta5"]
+[ext_resource type="Script" uid="uid://covljhbwvw866" path="res://scenes/menu_button.gd" id="7_7acvr"]
+
+[sub_resource type="Animation" id="Animation_fpta5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:transform")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Transform2D(1, 0, 0, 1, 0, 600)]
+}
+
+[sub_resource type="Animation" id="Animation_7acvr"]
+resource_name = "appear"
+length = 0.39999999999999997
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:transform")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Transform2D(1, 0, 0, 1, 0, 600), Transform2D(1, 0, 0, 1, 0, -100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2dux"]
+_data = {
+&"RESET": SubResource("Animation_fpta5"),
+&"appear": SubResource("Animation_7acvr")
+}
+
+[node name="Scoreboard" type="CanvasLayer" unique_id=704883414]
+offset = Vector2(0, 600)
+transform = Transform2D(1, 0, 0, 1, 0, 600)
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1626998037]
+position = Vector2(360, 600)
+scale = Vector2(2, 2)
+texture = ExtResource("1_ucmtr")
+
+[node name="SilverMedal" type="Sprite2D" parent="." unique_id=337273629]
+visible = false
+position = Vector2(230, 615)
+scale = Vector2(2, 2)
+texture = ExtResource("2_cxde7")
+
+[node name="GoldMedal" type="Sprite2D" parent="." unique_id=56368204]
+visible = false
+position = Vector2(230, 615)
+scale = Vector2(2, 2)
+texture = ExtResource("3_6lsbm")
+
+[node name="Score" type="Label" parent="." unique_id=1338284687]
+offset_left = 404.0
+offset_top = 555.0
+offset_right = 540.0
+offset_bottom = 595.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_fpta5")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("5_6lsbm")
+
+[node name="Delay" type="Timer" parent="Score" unique_id=1913418862]
+wait_time = 0.5
+one_shot = true
+
+[node name="Best" type="Label" parent="." unique_id=1836173397]
+offset_left = 394.0
+offset_top = 635.0
+offset_right = 540.0
+offset_bottom = 675.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_fpta5")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871358710]
+libraries/ = SubResource("AnimationLibrary_a2dux")
+
+[node name="MenuButton" type="TextureButton" parent="." unique_id=2141072776]
+offset_left = 300.0
+offset_top = 750.0
+offset_right = 380.0
+offset_bottom = 778.0
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("6_fpta5")
+texture_pressed = ExtResource("6_fpta5")
+script = ExtResource("7_7acvr")

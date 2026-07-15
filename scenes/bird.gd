@@ -54,11 +54,12 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		
-		if collider is AnimatableBody2D:
+		if collider is AnimatableBody2D and alive:
 			parent.kill_player()
 
 # resets bird to idle position in main menu
 func reset():
 	global_position = Vector2(360, 550)
+	alive = true
 	sprite.play("yellow_fly")
 	idle = true

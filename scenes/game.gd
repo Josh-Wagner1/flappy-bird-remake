@@ -17,6 +17,8 @@ var score := 0
 
 # Onready imports
 @onready var background: TextureRect = $Background/Background
+@onready var scoreboard: CanvasLayer = $Scoreboard
+@onready var game_over: AnimationPlayer = $GameOver/AnimationPlayer
 @onready var ui: CanvasLayer = $UI
 @onready var menu: Node2D = $UI/MainMenu
 @onready var ground: TextureRect = $UI/Ground
@@ -26,7 +28,7 @@ var score := 0
 
 # Startup actions
 func _ready() -> void:
-	pass
+	$Scoreboard/MenuButton.pressed.connect(_on_menu_button_pressed)
 
 # Recurring actions
 func _process(delta: float) -> void:
@@ -39,7 +41,7 @@ func _process(delta: float) -> void:
 		_spawn_pipe(Vector2(800, 910 + dif), PIPE_GREEN_BOTTOM)
 		
 		var score_zone = SCOREZONE.instantiate()
-		add_child(score_zone)
+		$Pipes.add_child(score_zone)
 		
 		pipe_cooldown.start()
 
@@ -61,7 +63,21 @@ func _spawn_pipe(pos: Vector2, type) -> void:
 	pipe.image = type
 	pipe.position = pos
 	
-	add_child(pipe)
+	$Pipes.add_child(pipe)
+
+func _on_menu_button_pressed():
+	game_over.play("RESET")
+	$Scoreboard/AnimationPlayer.play("RESET")
+	
+	score = 0
+	score_label.text = str(score)
+	
+	for child in $Pipes.get_children():
+		child.queue_free()
+	
+	bg_speed = 0.2
+	bird.reset()
+	menu.toggle_menu(true)
 
 # Adds a point
 func add_score():
@@ -70,6 +86,19 @@ func add_score():
 
 # Kills player
 func kill_player():
+	playing = false
 	bg_speed = 0.0
+	bird.set_collision_mask_value(8, false)
 	bird.alive = false
 	bird.sprite.play("yellow_dead")
+	game_over.play("appear")
+
+	$Scoreboard/AnimationPlayer.play("appear")
+	$Scoreboard/Score.set_score(score)
+	
+	if score < 20:
+		$Scoreboard/SilverMedal.show()
+		$Scoreboard/GoldMedal.hide()
+	else:
+		$Scoreboard/SilverMedal.hide()
+		$Scoreboard/GoldMedal.show()

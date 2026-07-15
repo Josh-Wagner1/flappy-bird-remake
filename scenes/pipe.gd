@@ -6,7 +6,7 @@ var start_position: Vector2
 
 # Onready variables
 @onready var sprite: Sprite2D = $Sprite
-@onready var parent = get_parent()
+@onready var parent = get_parent().get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

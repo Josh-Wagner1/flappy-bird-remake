@@ -6,11 +6,74 @@
 [ext_resource type="Shader" uid="uid://buv3sk4dj27if" path="res://scenes/background.gdshader" id="3_p57ef"]
 [ext_resource type="Texture2D" uid="uid://bhja5fvamfr1r" path="res://sprites/day.png" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://derf8i8i677ao" path="res://scenes/killzone.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://riygr62mdo71" path="res://scenes/scoreboard.tscn" id="5_0tnpc"]
 [ext_resource type="FontFile" uid="uid://c1m22nl3kpup1" path="res://fonts/PixelOperator8-Bold.ttf" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://bhg2m2r2h34oh" path="res://sprites/game_over.png" id="6_gee14"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gee14"]
 shader = ExtResource("3_p57ef")
 shader_parameter/speed = 0.1
+
+[sub_resource type="Animation" id="Animation_gee14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(360, 275)]
+}
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+resource_name = "appear"
+length = 0.39999999999999997
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(360, 275), Vector2(360, 250), Vector2(360, 275)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtaks"]
+_data = {
+&"RESET": SubResource("Animation_gee14"),
+&"appear": SubResource("Animation_0tnpc")
+}
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yf5fn"]
 
@@ -36,6 +99,8 @@ texture = ExtResource("3_u5sy4")
 
 [node name="UI" parent="." unique_id=778642812 instance=ExtResource("1_uwrxv")]
 
+[node name="Scoreboard" parent="." unique_id=704883414 instance=ExtResource("5_0tnpc")]
+
 [node name="Score" type="Label" parent="." unique_id=298082953]
 z_index = 11
 offset_left = 340.0
@@ -48,6 +113,16 @@ theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("5_u5sy4")
 theme_override_font_sizes/font_size = 48
 text = "0"
+
+[node name="GameOver" type="Sprite2D" parent="." unique_id=1907118291]
+self_modulate = Color(1, 1, 1, 0)
+z_index = 11
+position = Vector2(360, 275)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_gee14")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOver" unique_id=1208602563]
+libraries/ = SubResource("AnimationLibrary_vtaks")
 
 [node name="WorldBorders" type="Node" parent="." unique_id=1965651563]
 
@@ -77,5 +152,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Bird" parent="." unique_id=1330338950 instance=ExtResource("2_yqjtg")]
+
+[node name="Pipes" type="Node2D" parent="." unique_id=1401364747]
 
 [connection signal="start" from="Bird" to="." method="_on_start"]

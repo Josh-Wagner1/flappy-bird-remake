@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	var y2 = controls.global_position.y
 
 	logo.global_position.y = move_toward(y1, target1, delta * SPEED)
-	controls.global_position.y = move_toward(y2, target2, delta * SPEED)
+	controls.global_position.y = move_toward(y2, target2, delta * SPEED * 3)
 	
 	if y1 - target1 < 0.5 and y2 + target2 < 0.5:
 		print(y2)

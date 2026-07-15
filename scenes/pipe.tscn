@@ -8,7 +8,7 @@ size = Vector2(48, 319)
 [node name="Pipe" type="AnimatableBody2D" unique_id=208927164]
 z_index = 3
 scale = Vector2(2, 2)
-collision_layer = 8
+collision_layer = 128
 script = ExtResource("1_8x3ej")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1647316629]

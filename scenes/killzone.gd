@@ -4,4 +4,5 @@ extends Area2D
 
 # Kills player on impact
 func _on_body_entered(body: Node2D) -> void:
-	parent.kill_player()
+	if parent.playing:
+		parent.kill_player()
