@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://b24orscw6es4u" path="res://sprites/buttons/pause.png" id="1_kukqi"]
 [ext_resource type="Script" uid="uid://dr1wkkysc15b1" path="res://scenes/pause.gd" id="2_5d2l8"]
 [ext_resource type="FontFile" uid="uid://c1m22nl3kpup1" path="res://fonts/PixelOperator8-Bold.ttf" id="3_7l7mv"]
+[ext_resource type="AudioStream" uid="uid://c864lvvl1rp7p" path="res://sfx/hit.wav" id="4_5d2l8"]
+[ext_resource type="AudioStream" uid="uid://b4rv28d8un5d4" path="res://sfx/zombie.wav" id="5_7l7mv"]
 
 [node name="PauseMenu" type="Control" unique_id=1489399486]
 process_mode = 3
@@ -14,6 +16,7 @@ focus_behavior_recursive = 1
 
 [node name="Pause" type="TextureButton" parent="." unique_id=529020068]
 process_mode = 3
+visible = false
 z_index = 9
 layout_mode = 0
 offset_left = 25.0
@@ -64,5 +67,11 @@ text = "3"
 [node name="CountdownTimer" type="Timer" parent="." unique_id=1434907120]
 process_mode = 3
 one_shot = true
+
+[node name="Press1" type="AudioStreamPlayer" parent="." unique_id=531262864]
+stream = ExtResource("4_5d2l8")
+
+[node name="TimerSfx" type="AudioStreamPlayer" parent="." unique_id=796125138]
+stream = ExtResource("5_7l7mv")
 
 [connection signal="pressed" from="Pause" to="Pause" method="_on_pressed"]

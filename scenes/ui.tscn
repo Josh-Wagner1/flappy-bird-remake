@@ -6,6 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://bmcwtmqg17s23" path="res://sprites/ground.png" id="1_yev5y"]
 [ext_resource type="Texture2D" uid="uid://cwgqogxajhjle" path="res://sprites/logo.png" id="2_wm3ai"]
 [ext_resource type="PackedScene" uid="uid://br35mj14l3w3j" path="res://scenes/pause_menu.tscn" id="4_8dubc"]
+[ext_resource type="Texture2D" uid="uid://bqbdst6vhs13y" path="res://sprites/buttons/left_arrow.png" id="4_ktti3"]
+[ext_resource type="Texture2D" uid="uid://byfep8v32cw02" path="res://sprites/buttons/left_arrow_disabled.png" id="5_7dvkv"]
+[ext_resource type="Texture2D" uid="uid://l0caxoqonv2m" path="res://sprites/buttons/right_arrow.png" id="5_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://cbt8pr5rg5lu5" path="res://sprites/buttons/right_arrow_disabled.png" id="7_vdcm2"]
+[ext_resource type="Texture2D" uid="uid://bo6hl48728b42" path="res://sprites/buttons/sun_moon.png" id="8_vdcm2"]
+[ext_resource type="AudioStream" uid="uid://c864lvvl1rp7p" path="res://sfx/hit.wav" id="9_vsj0x"]
+[ext_resource type="AudioStream" uid="uid://cufqglaj4gagk" path="res://sfx/jetpack.wav" id="10_qsv74"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdt2y"]
 shader = ExtResource("1_x4jx1")
@@ -28,6 +35,58 @@ position = Vector2(360, 700)
 scale = Vector2(2, 2)
 texture = ExtResource("1_gdt2y")
 
+[node name="Arrows" type="Control" parent="MainMenu" unique_id=429991749]
+process_mode = 3
+z_index = 9
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Background" type="TextureButton" parent="MainMenu/Arrows" unique_id=194999021]
+process_mode = 3
+z_index = 5
+layout_mode = 0
+offset_left = 25.0
+offset_top = 800.0
+offset_right = 226.0
+offset_bottom = 1001.0
+scale = Vector2(0.5, 0.5)
+focus_mode = 0
+texture_normal = ExtResource("8_vdcm2")
+stretch_mode = 0
+
+[node name="LeftArrow" type="TextureButton" parent="MainMenu/Arrows" unique_id=1315138332]
+z_index = -3
+layout_mode = 0
+offset_left = 130.0
+offset_top = 500.0
+offset_right = 170.0
+offset_bottom = 540.0
+focus_mode = 0
+texture_normal = ExtResource("4_ktti3")
+texture_disabled = ExtResource("5_7dvkv")
+stretch_mode = 0
+
+[node name="RightArrow" type="TextureButton" parent="MainMenu/Arrows" unique_id=2015269265]
+z_index = -3
+layout_mode = 0
+offset_left = 570.0
+offset_top = 500.0
+offset_right = 610.0
+offset_bottom = 540.0
+focus_mode = 0
+texture_normal = ExtResource("5_cgfq5")
+texture_disabled = ExtResource("7_vdcm2")
+stretch_mode = 0
+
+[node name="Press1" type="AudioStreamPlayer" parent="MainMenu/Arrows" unique_id=1361527582]
+stream = ExtResource("9_vsj0x")
+
+[node name="Press2" type="AudioStreamPlayer" parent="MainMenu/Arrows" unique_id=884665252]
+stream = ExtResource("10_qsv74")
+
 [node name="PauseMenu" parent="." unique_id=1489399486 instance=ExtResource("4_8dubc")]
 
 [node name="Ground" type="TextureRect" parent="." unique_id=1621352286]
@@ -43,3 +102,7 @@ offset_right = 296.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_yev5y")
+
+[connection signal="pressed" from="MainMenu/Arrows/Background" to="MainMenu" method="_on_background_pressed"]
+[connection signal="pressed" from="MainMenu/Arrows/LeftArrow" to="MainMenu" method="_on_left_arrow_pressed"]
+[connection signal="pressed" from="MainMenu/Arrows/RightArrow" to="MainMenu" method="_on_right_arrow_pressed"]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dpbjtncy20w11" path="res://scenes/score_label.gd" id="5_6lsbm"]
 [ext_resource type="Texture2D" uid="uid://20psfk6ptcu3" path="res://sprites/buttons/menu_button.png" id="6_fpta5"]
 [ext_resource type="Script" uid="uid://covljhbwvw866" path="res://scenes/menu_button.gd" id="7_7acvr"]
+[ext_resource type="AudioStream" uid="uid://c864lvvl1rp7p" path="res://sfx/hit.wav" id="8_a2dux"]
 
 [sub_resource type="Animation" id="Animation_fpta5"]
 length = 0.001
@@ -104,6 +105,9 @@ action_mode = 0
 texture_normal = ExtResource("6_fpta5")
 texture_pressed = ExtResource("6_fpta5")
 script = ExtResource("7_7acvr")
+
+[node name="Press1" type="AudioStreamPlayer" parent="." unique_id=218075481]
+stream = ExtResource("8_a2dux")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1871358710]
 libraries/ = SubResource("AnimationLibrary_a2dux")

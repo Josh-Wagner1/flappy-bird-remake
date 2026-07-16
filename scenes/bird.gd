@@ -17,6 +17,7 @@ var time_elapsed := 0.0
 
 # Onready variables
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var jump: AudioStreamPlayer = $Jump
 @onready var parent = get_parent()
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func _physics_process(delta: float) -> void:
 			idle = false
 			start.emit()
 		
+		jump.play()
 		velocity.y = JUMP_VELOCITY
 	
 	# Adjust rotation
@@ -56,10 +58,12 @@ func _physics_process(delta: float) -> void:
 		
 		if collider is AnimatableBody2D and alive:
 			parent.kill_player()
+			
 
 # resets bird to idle position in main menu
 func reset():
+	time_elapsed = 0
 	global_position = Vector2(360, 550)
 	alive = true
-	sprite.play("yellow_fly")
+	sprite.play(parent.flying_animation)
 	idle = true
